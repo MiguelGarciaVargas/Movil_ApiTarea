@@ -4,22 +4,23 @@ import 'package:http/http.dart' as http;
 class NetworkHelper {
   NetworkHelper();
 
-  final String url = 'https://api.openrouteservice.org/v2/directions/';
-  final String apiKey =
-      '5b3ce3597851110001cf624806a2e235fb984c64871eb026605cbd30';
+  final String url = 'http://nrweb.com.mx/reportes/api_prueba.php?nombre=%22alejandro%22&hora=10';
 
   Future getData() async {
     http.Response response = await http.get(Uri.parse('$url'));
     if (response.statusCode == 200) {
       String data = response.body;
+      print("DATOS JSON DESDE GETaPI");
       print(data);
       return jsonDecode(data);
-    } else if (response.statusCode == 404){
-      print("NO SE PUDO CONECTAR ^^^404^^^");
-      print(response.statusCode);
-    } else if (response.statusCode == 500){
-      print("Error sintactico ^^^500^^^");
-      print(response.statusCode);
+    } else {
+      // Manejo de errores
+      String errorMessage = 'Error desconocido';
+      if (response.statusCode == 404) {
+        errorMessage = 'No se pudo conectar: 404';
+      } else if (response.statusCode == 500) {
+        errorMessage = 'Error sintáctico: 500';
+      }
     }
   }
 }
