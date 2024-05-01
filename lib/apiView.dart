@@ -1,6 +1,8 @@
 import 'package:actividad_api/home.dart';
 import 'package:flutter/material.dart';
 
+import 'package:lottie/lottie.dart';
+
 class ApiView extends StatefulWidget {
   final int status;
   final List<String> colores;
@@ -21,7 +23,6 @@ class _ApiViewState extends State<ApiView> {
   @override
   Widget build(BuildContext context) {
     debugPrint(">>>>>HOME<<<<<<<<<");
-    final size = MediaQuery.of(context).size;
 
     return Scaffold(
       floatingActionButton: FloatingActionButton(
@@ -40,8 +41,8 @@ class _ApiViewState extends State<ApiView> {
         children: [
           Align(
               alignment: AlignmentDirectional(0, 0),
-              //child: widget.status == 200 ? status200(widget: widget): errorStatus(status: widget.status)
-              child: errorStatus(status: 500)
+              child: widget.status == 200 ? status200(widget: widget): errorStatus(status: widget.status)
+              //child: errorStatus(status: 404)
 
           )
         ],
@@ -60,7 +61,7 @@ class errorStatus extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return status==404 ? Container(
-      child: Image.asset('imagenes/error404.jpg'),
+      child: Lottie.asset('imagenes/error404.json')
     ) :
     Container(
         child: Image.asset('imagenes/error500.jpg')
@@ -78,11 +79,16 @@ class status200 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    double height = size.height / widget.numeros[0];
+    double width = size.width / widget.numeros[0];
     return Padding(
       padding: EdgeInsets.all(10),
       child: GridView.builder(
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: widget.numeros[0]),
+              crossAxisCount: widget.numeros[0],
+            childAspectRatio: width / height,
+          ),
           itemCount: widget.numeros[0] * widget.numeros[1],
           itemBuilder: (context, index) {
             int contColores = 0;

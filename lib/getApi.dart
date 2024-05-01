@@ -4,10 +4,11 @@ import 'package:http/http.dart' as http;
 class NetworkHelper {
   NetworkHelper();
 
-  final String url = 'http://nrweb.com.mx/reportes/api_prueba.php?nombre=%22alejandro%22&hora=10';
+  final String url = 'http://nrweb.com.mx/reportes/api_prueba.php?nombre=%22miguel%22&hora=8';
 
   Future getData() async {
     http.Response response = await http.get(Uri.parse('$url'));
+    print("desdeGetData");
     if (response.statusCode == 200) {
       String data = response.body;
       print("DATOS JSON DESDE GETaPI");

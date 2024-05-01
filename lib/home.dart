@@ -71,6 +71,7 @@ class _HomeState extends State<Home> {
 
   Future<void> getJsonData() async {
     NetworkHelper networkHelper = NetworkHelper();
+    debugPrint("DESDE GETJASONDATA ^^^");
     try {
       var data;
       data = await networkHelper.getData();
